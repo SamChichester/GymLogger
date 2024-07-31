@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>You do not permission to view this profile.</h1>
+    <a class="btn btn-primary mt-3" href="{{ url_for('profile', user_id=current_user.id) }}">Return to Your Profile</a>
+</div>
+{% endblock %}

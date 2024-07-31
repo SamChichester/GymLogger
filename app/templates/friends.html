@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Your Friends</h2>
+    {% if friends|length == 0 %}
+    <p class="mt-3">You have no friends added.</p>
+    {% else %}
+    <ul class="list-group mt-4 mb-4">
+        {% for friend in friends %}
+        <li class="list-group-item"><a href="profile/{{ friend.id }}">{{ friend.username }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <a href="{{ url_for('send_friend_request') }}" class="btn btn-primary mb-4">Add a Friend</a>
+
+    <h3>Friend Requests</h3>
+    {% if received_requests|length == 0 %}
+    <p class="mt-3">You have no friend requests.</p>
+    {% else %}
+    <ul class="list-group mt-4 mb-4">
+        {% for request in received_requests %}
+        <li class="list-group-item">
+            <a href="{{ url_for('profile', user_id=request.sender.id) }}">{{ request.sender.username }}</a>
+            <form method="POST" action="{{ url_for('respond_friend_request', request_id=request.id) }}" class="d-inline">
+                <button type="submit" name="action" value="accept" class="btn btn-success btn-sm ms-2">Accept</button>
+                <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm ms-2">Reject</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h3>Sent Requests</h3>
+    {% if sent_requests|length == 0 %}
+    <p class="mt-3">You have not sent any friend requests.</p>
+    {% else %}
+    <ul class="list-group mt-4 mb-4">
+        {% for request in sent_requests %}
+        <li class="list-group-item">
+            <a href="{{ url_for('profile', user_id=request.receiver.id) }}">{{ request.receiver.username }}</a>
+            <span class="badge bg-secondary">Pending</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}

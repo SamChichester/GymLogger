@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Preferences</h1>
+    <form method="POST" action="{{ url_for('preferences') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.weight_unit.label(class="form-label") }}<br>
+            {% for subfield in form.weight_unit %}
+            <div class="form-check">
+                {{ subfield(class="form-check-input", id=subfield.id) }}
+                <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.display_date.label(class="form-label") }}<br>
+            {% for subfield in form.display_date %}
+            <div class="form-check">
+                {{ subfield(class="form-check-input", id=subfield.id) }}
+                <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.privacy.label(class="form-label") }}<br>
+            {% for subfield in form.privacy %}
+            <div class="form-check">
+                {{ subfield(class="form-check-input", id=subfield.id) }}
+                <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label.text }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

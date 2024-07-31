@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Edit Exercise</h1>
+    <form method="POST" action="{{ url_for('edit_exercise', exercise_id=exercise.id) }}">
+        {{ edit_form.hidden_tag() }}
+        <div class="mb-3">
+            {{ edit_form.exercise_name.label(class="form-label") }}
+            {{ edit_form.exercise_name(class="form-control", size=32) }}
+        </div>
+        <div class="mb-3">
+            {{ edit_form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+    <h2 class="mt-5 mb-4">Add Progression</h2>
+    <form method="POST" action="{{ url_for('edit_exercise', exercise_id=exercise.id) }}">
+        {{ add_form.hidden_tag() }}
+        <div class="mb-3">
+            {{ add_form.weight.label(class="form-label") }}
+            {{ add_form.weight(class="form-control", size=32) }}
+        </div>
+        <div class="mb-3">
+            {{ add_form.reps.label(class="form-label") }}
+            {{ add_form.reps(class="form-control", size=32) }}
+        </div>
+        <div class="mb-3">
+            {{ add_form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+    <h2 class="mt-5 mb-4">Edit Progression</h2>
+    <form method="post" action="{{ url_for('edit_exercise', exercise_id=exercise.id) }}">
+        {{ edit_progression_form.hidden_tag() }}
+        <div class="mb-3">
+            {{ edit_progression_form.progression_element.label(class="form-label") }}<br>
+            {{ edit_progression_form.progression_element(class="form-control", id="progression_element") }}
+        </div>
+        <div id="edit-options" style="display:none;">
+            <div class="mb-3">
+                {{ edit_progression_form.update_weight.label(class="form-label") }}
+                {{ edit_progression_form.update_weight(class="form-control", size=32, id="update_weight") }}
+            </div>
+            <div class="mb-3">
+                {{ edit_progression_form.update_reps.label(class="form-label") }}
+                {{ edit_progression_form.update_reps(class="form-control", size=32, id="update_reps") }}
+            </div>
+            <div class="mb-3">
+                {{ edit_progression_form.edit_submit(class="btn btn-primary") }}
+                {{ edit_progression_form.delete_submit(class="btn btn-danger") }}
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('progression_element').addEventListener('change', function() {
+        var editOptions = document.getElementById('edit-options');
+        var selectedOption = this.options[this.selectedIndex].value;
+        if (selectedOption) {
+            editOptions.style.display = 'block';
+            // Fetch the details of the selected progression element via AJAX
+            fetch(`{{ url_for('get_progression_details') }}?id=${selectedOption}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('update_weight').value = data.weight;
+                    document.getElementById('update_reps').value = data.reps;
+                });
+        } else {
+            editOptions.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

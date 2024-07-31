@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex align-items-center mb-4">
+        <img src="{{ user.avatar(128) }}" alt="{{ user.username }}" class="rounded-circle me-3" width="128" height="128">
+        <div>
+            <h1>{{ user.username }}</h1>
+            {% if current_user in friends %}
+            <form method="POST" action="{{ url_for('unfriend', friend_id=user.id) }}" class="d-inline">
+                <button type="submit" class="btn btn-danger btn-sm">Unfriend</button>
+            </form>
+            {% endif %}
+            {% if sent_request %}
+            <form method="POST" action="{{ url_for('respond_friend_request', request_id=sent_request.id) }}" class="d-inline">
+                <button type="submit" name="action" value="accept" class="btn btn-success btn-sm ms-2">Accept Friend Request</button>
+                <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm ms-2">Reject Friend Request</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div>
+        {% if exercises|length > 0 %}
+            {% for exercise in exercises %}
+                {% include '_exercise.html' %}
+            {% endfor %}
+        {% else %}
+        <p>No exercises created.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

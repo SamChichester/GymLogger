@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Hi, {{ current_user.username }}!</h1>
+    {% if exercises|length == 0 %}
+        <p class="text-muted">No exercises added yet. Add some on <a href="{{ url_for('profile', user_id=current_user.id) }}">your profile</a>.</p>
+    {% else %}
+        {% for progression in exercises %}
+            <div class="card mb-3">
+                <div class="col">
+                    <div class="card-body">
+                        {% if progression.exercise.author == current_user %}
+                        <p class="card-title mb-3 text-danger"><strong>You logged {{ progression.exercise.exercise_name }}</strong></p>
+                        {% else %}
+                        <p class="card-title mb-3 text-primary"><strong>{{ progression.exercise.author.username }} logged {{ progression.exercise.exercise_name }}</strong></p>
+                        {% endif %}
+                        <div>
+                            <p class="card-text">{{ progression.weight }} {{ progression.exercise.author.weight_unit}} x {{ progression.rep }}  ({{ progression.simplified_date() }})</p>
+                            {% if progression.is_max() %}
+                            <p class="card-text badge bg-success"><strong>NEW MAX</strong></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

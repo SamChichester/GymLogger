@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Add a Friend</h2>
+    <form method="POST" action="{{ url_for('send_friend_request') }}">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.friend_code.label(class="form-label") }}
+            {{ form.friend_code(class="form-control", placeholder="Enter a 6-digit friend code") }}
+        </div>
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
