@@ -11,7 +11,7 @@
 
 ## Description
 I came up with the idea for this project at the gym;
-I wanted a way to log how much weight I was lifting on each exercise, to track
+I wanted a way to log how much weight I was lifting on each exercise to track
 my progression over time. \
 \
 I originally created this project as a solution to that problem, and eventually
@@ -24,7 +24,7 @@ I decided to add a social media component as well.
 - **Database:** SQLite
 
 ## Demo & Features
-### Demo
+### Video Demo
 [![Project Demo](https://img.youtube.com/vi/NWkKS9CEC-I/0.jpg)](https://www.youtube.com/watch?v=NWkKS9CEC-I)
 ### Features
 - [User Authentication System](#user-authentication-system)
@@ -54,7 +54,7 @@ friend request to the user with that friend code. Users can accept and deny frie
 friends can unfriend each other via their profile.
 ![Project Screenshot](https://res.cloudinary.com/dvsvlcbec/image/upload/v1722556245/Screenshot_19_pcy8wn.png)
 #### Activity Feed
-The home page of a logged user will show an activity feed of their own recently logged progressions and their friends'
+The home page of a user will show an activity feed of their own recently logged progressions and their friends'
 recently logged progressions.
 ![Project Screenshot](https://res.cloudinary.com/dvsvlcbec/image/upload/v1722566025/Screenshot_20_kjc611.png)
 
